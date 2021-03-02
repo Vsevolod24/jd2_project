@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="kuchko">
+        <sql>
+            create database if not exists project;
+        </sql>
+    </changeSet>
+
+    <changeSet id="2" author="kuchko">
+        <sql>
+            create table if not exists type (
+            type_id int not null primary key auto_increment,
+            type_name varchar(30) not null
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="3" author="kuchko">
+        <sql>
+            create table if not exists unit (
+            unit_id int not null primary key auto_increment,
+            unit_name varchar(30) not null
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="4" author="kuchko">
+        <sql>
+            insert into type(type_name) values('Pressure');
+            insert into type(type_name) values('Temperature');
+            insert into type(type_name) values('Voltage');
+            insert into type(type_name) values('Humidity');
+        </sql>
+    </changeSet>
+
+    <changeSet id="5" author="kuchko">
+        <sql>
+            insert into unit(unit_name) values('bar');
+            insert into unit(unit_name) values('°C');
+            insert into unit(unit_name) values('voltage');
+            insert into unit(unit_name) values('%');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

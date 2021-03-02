@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Addition sensor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+<header th:insert="header :: header"></header>
+<div class="container mt-5 mb-10">
+    <h1>Addition sensor</h1>
+    <form action="#" th:action="@{/add_sensor}" th:object="${sensor}" method="post">
+        Name of Sensor <input type="text" name="name" id="name" placeholder="Name of sensor" class="form-control"><br>
+        Model of Sensor <input type="text" name="model" id="model" placeholder="Model" class="form-control"><br>
+        <p>
+            <label>
+                Range from <input name="rangeFrom" id="rangeFrom" type="number" max="45" min="12">
+                to <input name="rangeTo" id="rangeTo" type="number" min="12" max="45"><br>
+            </label>
+        </p>
+        <p>
+            <label>
+                Location <input type="text" name="location" id="location" placeholder="Location" class="form-control"><br>
+            </label>
+        </p>
+        Description <textarea name="description" placeholder="Write description" class="form-control"></textarea><br>
+
+        <button type="submit" class="btn btn-success">Add sensor</button>
+        <br>
+    </form>
+</div>
+<div th:insert="footer :: footer"></div>
+</body>
+</html>
