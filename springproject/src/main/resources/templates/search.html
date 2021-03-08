@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Support for navigation</title>
+    <title>Search result</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -10,10 +10,13 @@
 <header th:insert="header :: header"></header>
     <div class="container" mt-5>
         <h1>Sensors</h1>
-        <div th:each="el: ${sensors}" class="alert alert-info mt-2">
-            <h3 th:text="${el.name}"/>
-            <p th:text="${el.model}"/>
-            <p th:text="${el.description}"/>
+        <div th:each="sensor: ${sensors}" class="alert alert-info mt-2">
+            <h2 th:text="${sensor.name}"/>
+            Model:<p th:text="${sensor.model}"/>
+            Type:<p th:text="${sensor.type.typeName}"/>
+            Unuit:<p th:text="${sensor.unit.unitName}"/>
+            Location:<p th:text="${sensor.location}"/>
+            <p th:text="${sensor.description}"/>
         </div>
     </div>
 <div th:insert="footer :: footer"></div>

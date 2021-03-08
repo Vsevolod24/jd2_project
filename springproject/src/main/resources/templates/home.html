@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${title}"/>
+    <title>Main page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -31,22 +31,33 @@
                 </thead>
                 <tbody>
                 <tr th:each="sensor : ${sensors}">
-                    <td th:text="${sensor.sensorName}"></td>
-                    <td th:text="${sensor.sensorModel}"></td>
-                    <td th:text="${sensor.idFromType.typeName}"></td>
+                    <td th:text="${sensor.name}"></td>
+                    <td th:text="${sensor.model}"></td>
+                    <td th:text="${sensor.type.typeName}"></td>
                     <td th:text="${sensor.rangeFrom}"></td>
                     <td th:text="${sensor.rangeTo}"></td>
-                    <td th:text="${sensor.idFromUnit.unitName}"></td>
-                    <td th:text="${sensor.sensorDescription}"></td>
-                    <td th:text="${sensor.sensorLocation}"></td>
+                    <td th:text="${sensor.unit.unitName}"></td>
+                    <td th:text="${sensor.description}"></td>
+                    <td th:text="${sensor.location}"></td>
                     <td><a th:href="@{sensor-edit/{id}(id=${sensor.id})}">Edit</a></td>
                     <td><a th:href="@{sensor-delete/{id}(id=${sensor.id})}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>
+            <p align="right">
+            <div th:if="${sensorPage.totalPages > 0}" class="pagination"
+                 th:each="pageNumber : ${pageNumbers}">
+                <a th:href="@{/(size=${sensorPage.size}, page=${pageNumber})}"
+                   th:text="${pageNumber}"
+                   th:class="${pageNumber==sensorPage.number + 1} ? active"></a>
+            </div>
+            </p>
         </div>
         <p><a href="/add_sensor">Add sensor</a></p>
     </section>
 </main>
 </body>
 </html>
+
+
+

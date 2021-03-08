@@ -2,50 +2,46 @@ package it.academy.controller;
 
 import it.academy.model.Sensor;
 import it.academy.service.SensorService;
+import it.academy.service.TypeService;
+import it.academy.service.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AddController {
 
+    private final TypeService typeService;
+
+    private final UnitService unitService;
+
     private final SensorService sensorService;
 
     @Autowired
-    public AddController(SensorService sensorService) {
+    public AddController(TypeService typeService, UnitService unitService, SensorService sensorService) {
+        this.typeService = typeService;
+        this.unitService = unitService;
         this.sensorService = sensorService;
     }
 
     @GetMapping("/add_sensor")
-    public String createSensorForm(Sensor sensor) {
+    public String createSensorForm(Model model1, Model model2, Model model3) {
+        model1.addAttribute("types", typeService.findAll());
+        model2.addAttribute("units", unitService.findAll());
+        model3.addAttribute("sensor", new Sensor());
         return "add";
     }
 
     @PostMapping("/add_sensor")
-    public String createSensor(Sensor sensor){
+    public String createSensor(@ModelAttribute(name = "sensor") Sensor sensor) {
         sensorService.saveSensor(sensor);
         return "redirect:/";
     }
 
     @GetMapping("sensor-delete/{id}")
-    public String deleteSensor(@PathVariable("id") Long id){
+    public String deleteSensor(@PathVariable("id") Integer id) {
         sensorService.deleteById(id);
-        return  "redirect:/";
-    }
-
-    @GetMapping("/sensor-edit/{id}")
-    public String editSensorForm(@PathVariable("id") Long id, Model model) {
-        Sensor sensor = sensorService.findById(id);
-        model.addAttribute("sensors", sensor);
-        return "sensor-update";
-    }
-
-    @PostMapping("/sensor-edit")
-    public String editSensor(Sensor sensor){
-        sensorService.saveSensor(sensor);
         return "redirect:/";
     }
 

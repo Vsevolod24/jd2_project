@@ -1,5 +1,6 @@
 package it.academy.service;
 
+import it.academy.dao.PageDao;
 import it.academy.dao.SensorDao;
 import it.academy.model.Sensor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +11,19 @@ import java.util.List;
 @Service
 public class SensorService {
 
-
     private SensorDao sensorDao;
 
     @Autowired
-    public SensorService(SensorDao sensorDao) {
+    public SensorService(SensorDao sensorDao, PageDao pageDao) {
         this.sensorDao = sensorDao;
     }
 
-    public SensorService(String name, String model, String rangeFrom, String rangeTo, String description) {
+    public SensorService(String name, String model, String rangeFrom,
+                         String rangeTo, String description, String location) {
     }
 
-    public Sensor findById(Long id) {
-        return sensorDao.getOne(id);
+    public Sensor findById(Integer id) {
+        return sensorDao.findById(id).orElseThrow(() -> new IllegalArgumentException("sensor id not found"));
     }
 
     public List<Sensor> findAll() {
@@ -33,8 +34,10 @@ public class SensorService {
         return sensorDao.save(sensor);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Integer id) {
         sensorDao.deleteById(id);
     }
 
+
 }
+

@@ -17,7 +17,7 @@ public class Type {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long typeId;
+    private Integer typeId;
 
     private String typeName;
 }

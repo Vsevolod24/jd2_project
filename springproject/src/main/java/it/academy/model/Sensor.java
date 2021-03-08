@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.websocket.OnError;
 
 @Entity
 @Data
@@ -17,13 +16,13 @@ public class Sensor {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sensorId;
+    private Integer id;
 
     @Column
-    private String sensorName;
+    private String name;
 
     @Column
-    private String sensorModel;
+    private String model;
 
     @Column
     private String rangeFrom;
@@ -32,16 +31,18 @@ public class Sensor {
     private String rangeTo;
 
     @Column
-    private String sensorDescription;
+    private String description;
 
     @Column
-    private String sensorLocation;
+    private String location;
 
     @ManyToOne
-    @JoinColumn(name = "idFromType")
-    private Type idFromType;
+    private Type type;
 
     @ManyToOne
-    @JoinColumn(name = "idFromUnit")
-    private Unit idFromUnit;
+    private Unit unit;
+
+    public Sensor(int i) {
+
+    }
 }
