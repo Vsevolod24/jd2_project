@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleafe.org/thymeleaf-extras-springsecurity5"/>
 <head>
     <title>Main page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -39,8 +40,12 @@
                     <td th:text="${sensor.unit.unitName}"></td>
                     <td th:text="${sensor.description}"></td>
                     <td th:text="${sensor.location}"></td>
-                    <td><a th:href="@{sensor-edit/{id}(id=${sensor.id})}">Edit</a></td>
-                    <td><a th:href="@{sensor-delete/{id}(id=${sensor.id})}">Delete</a></td>
+                    <td sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{sensor-edit/{id}(id=${sensor.id})}">Edit</a>
+                    </td>
+                    <td sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{sensor-delete/{id}(id=${sensor.id})}">Delete</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -53,7 +58,7 @@
             </div>
             </p>
         </div>
-        <p><a href="/add_sensor">Add sensor</a></p>
+        <p><a sec:authorize="hasRole('ADMIN')" href="/add_sensor">Add sensor</a></p>
     </section>
 </main>
 </body>

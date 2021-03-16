@@ -11,22 +11,26 @@
 <div class="container mt-5 mb-10">
     <h1>Edit sensor</h1>
     <form action="#" th:action="@{/sensor-edit/{id}(id=${sensor.id})}" th:object="${sensor}" method="post">
-        Name of Sensor <input type="text" id="name" th:field="*{name}" placeholder="Name of sensor" class="form-control"><br>
-        Model of Sensor <input type="text" id="model" th:field="*{model}" placeholder="Model" class="form-control"><br>
+        Name of Sensor <input type="text" id="name" th:field="*{name}" placeholder="Name of sensor"
+                              class="form-control" required minlength="2" maxlength="30">
+        <br>
+        Model of Sensor <input type="text" id="model" th:field="*{model}" placeholder="Model"
+                               сlass="form-control" required minlength="2" maxlength="30">
+        <br>
         <p>
             <label>
-                Range from <input id="rangeFrom" th:field="*{rangeFrom}" type="number">
-                to <input th:field="*{rangeTo}" id="rangeTo" type="number"><br>
+                Range from <input id="rangeFrom" th:field="*{rangeFrom}" type="number" required>
+                to <input th:field="*{rangeTo}" id="rangeTo" type="number" required><br>
             </label>
         </p>
         <p>
             <label>
                 Location <input type="text" th:field="*{location}" id="location" placeholder="Location"
-                                class="form-control"><br>
+                                class="form-control" required minlength="2" maxlength="15"><br>
             </label>
         </p>
             Type <select class="form-select" aria-label="Type" th:field="*{type}">
-            <option th:each="type : ${types}" th:value="${type.typeId}" th:text="${type.typeName}">type</option>
+            <option th:each="type : ${types}" th:value="${type.typeId}" th:text="${type.typeName}">Click</option>
         </select><br>
         <br>
         <p>
@@ -36,7 +40,7 @@
         </p><br>
         <p>
             Description <textarea th:field="*{description}" placeholder="Write description"
-                                  class="form-control"></textarea><br>
+                                  class="form-control" maxlength="150"></textarea><br>
         </p>
         <button type="submit" class="btn btn-success">Edit</button>
         <br>
